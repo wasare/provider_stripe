@@ -1,0 +1,30 @@
+{
+    "name": "wasare/provider_stripe",
+    "type": "drupal-module",
+    "description": "Provides an integration to use the Stripe API library",
+    "keywords": [
+        "Drupal"
+    ],
+    "license": "GPL-2.0+",
+    "homepage": "https://github.com/wasare/provider_stripe",
+    "minimum-stability": "dev",
+    "support": {
+        "issues": "https://github.com/wasare/provider_stripe/issues",
+        "source": "https://github.com/wasare/provider_stripe"
+    },
+    "repositories": {
+        "wasare": {
+            "type": "path",
+            "url": "https://github.com/wasare/provider_stripe"
+        }
+    },
+    "require": {
+        "stripe/stripe-php": "^7.36",
+        "drupal/key": "^1.1"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    }
+}

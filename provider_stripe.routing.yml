@@ -1,0 +1,26 @@
+provider_stripe.admin:
+  path: '/admin/config/services/provider/stripe'
+  defaults:
+    _form: '\Drupal\provider_stripe\Form\StripeApiAdminForm'
+    _title: 'Provider Stripe Settings'
+  requirements:
+    _permission: 'administer provider stripe'
+  options:
+    _admin_route: TRUE
+
+provider_stripe.webhook:
+  path: '/provider/stripe/webhook'
+  methods: [POST]
+  defaults:
+    _controller: '\Drupal\provider_stripe\Controller\StripeApiWebhook::handleIncomingWebhook'
+  requirements:
+    _permission: 'access content'
+    _content_type_format: json
+
+provider_stripe.webhook_redirect:
+  path: '/provider/stripe/webhook'
+  methods: [GET, HEAD, PUT, DELETE]
+  defaults:
+    _controller: '\Drupal\provider_stripe\Controller\StripeApiWebhookRedirect::webhookRedirect'
+  requirements:
+    _permission: 'access content'

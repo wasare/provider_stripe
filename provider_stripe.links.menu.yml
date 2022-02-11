@@ -1,0 +1,5 @@
+provider_stripe.admin:
+  title: 'Provider Stripe'
+  description: 'Edit Provider Stripe API credentials.'
+  parent: system.admin_config_services
+  route_name: provider_stripe.admin
