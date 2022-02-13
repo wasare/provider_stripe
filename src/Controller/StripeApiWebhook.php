@@ -74,9 +74,9 @@ class StripeApiWebhook extends ControllerBase {
     }
 
     if ($config->get('log_webhooks')) {
-       /** @var \Drupal\Core\Logger\LoggerChannelInterface $logger */
-       $logger = $this->getLogger('provider_stripe');
-       $logger->info("Stripe webhook received event:\n @event", ['@event' => (string)$event]);
+      /** @var \Drupal\Core\Logger\LoggerChannelInterface $logger */
+      $logger = $this->getLogger('provider_stripe');
+      $logger->info("Stripe webhook received event:\n @event", ['@event' => (string) $event]);
     }
 
     // Dispatch the webhook event.
