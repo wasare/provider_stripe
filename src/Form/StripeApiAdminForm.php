@@ -199,8 +199,8 @@ class StripeApiAdminForm extends ConfigFormBase {
       $account = NULL;
     }
 
-    if ($account && $account->email) {
-      return ['#markup' => $this->t('Success! Account email: %email', ['%email' => $account->email])];
+    if ($account && $account->id) {
+      return ['#markup' => $this->t('Success! Account id: %id', ['%id' => $account->id])];
     }
     else {
       return ['#markup' => $this->t('Error! Could not connect! See error log.')];
