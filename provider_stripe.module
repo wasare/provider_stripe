@@ -13,12 +13,16 @@ use Drupal\Core\Messenger\MessengerInterface;
 function provider_stripe_preprocess_page(&$variables) {
   $admin_context = \Drupal::service('router.admin_context');
   if ($admin_context->isAdminRoute()) {
-    /** @var \Drupal\provider_stripe\StripeApiService $stripe_api **/
-    $stripe_api = \Drupal::service('provider_stripe.stripe_api');
-    if ($stripe_api->getMode() === 'test') {
-      \Drupal::messenger()
-        ->addMessage(t('Provider Stripe is running in test mode.'),
-          MessengerInterface::TYPE_WARNING);
+    $user_roles = \Drupal::currentUser()->getRoles();
+
+    if (in_array('administrator', $user_roles)) {
+      /** @var \Drupal\provider_stripe\StripeApiService $stripe_api **/
+      $stripe_api = \Drupal::service('provider_stripe.stripe_api');
+      if ($stripe_api->getMode() === 'test') {
+        \Drupal::messenger()
+          ->addMessage(t('Provider Stripe is running in test mode.'),
+            MessengerInterface::TYPE_WARNING);
+      }
     }
   }
   // $module_data = \Drupal::config('core.extension')->get('module');
