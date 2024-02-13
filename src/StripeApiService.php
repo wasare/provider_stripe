@@ -17,6 +17,13 @@ use Stripe\Stripe;
 class StripeApiService {
 
   /**
+   * The config for provider_stripe.settings.
+   *
+   * @var \Drupal\Core\Config\Config
+   */
+  protected $config;
+
+  /**
    * Drupal\Core\Config\ConfigFactory definition.
    *
    * @var \Drupal\Core\Config\ConfigFactory
@@ -48,10 +55,11 @@ class StripeApiService {
    * Constructor.
    */
   public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerInterface $logger, KeyRepositoryInterface $key) {
-    $this->config = $config_factory->get('provider_stripe.settings');
+    $this->configFactory = $config_factory;
     $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger;
     $this->key = $key;
+    $this->config = $this->configFactory->get('provider_stripe.settings');
     Stripe::setApiKey($this->getApiKey());
     $this->overrideApiVersion();
   }
@@ -86,7 +94,6 @@ class StripeApiService {
       if ($key_entity) {
         return $key_entity->getKeyValue();
       }
-
     }
 
     return NULL;
@@ -147,8 +154,7 @@ class StripeApiService {
     if ($method) {
       try {
         return call_user_func_array([$class, $method], $args);
-      }
-      catch (\Throwable $e) {
+      } catch (\Throwable $e) {
         $this->logger->error('Error: @error <br /> @args', [
           '@args' => Json::encode([
             'object' => $object,
@@ -162,5 +168,4 @@ class StripeApiService {
     }
     return $class;
   }
-
 }
